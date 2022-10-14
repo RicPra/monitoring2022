@@ -48,3 +48,14 @@ summary(meuse)
 plot(meuse$cadmium, meuse$zinc)
 
 # We can put all the column in a new variable
+cad <- meuse$cadmium
+zin <- meuse$zinc
+
+plot(cad, zin)
+
+# Or you can use the "attach()" function
+attach(meuse)
+plot(cadmium, zinc)
+
+# If we use the function "pairs()"
+pairs(meuse)
