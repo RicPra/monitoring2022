@@ -57,5 +57,5 @@ plot(cad, zin)
 attach(meuse)
 plot(cadmium, zinc)
 
-# If we use the function "pairs()"
+# If we use the function "pairs()" it plots every data pairing between them
 pairs(meuse)
