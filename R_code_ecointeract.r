@@ -48,7 +48,8 @@ names(meuse)
 # Now we use the "summary()" function that gives me all the statistical variables I want
 summary(meuse)
 
-# We plot two of the columns and we have to say where to take the data so we use the $ symbol
+# We plot two of the columns and we have to say where to take the data so we use the $ symbol, because they are inside the table
+# $ is used to link the objects with the variables
 plot(meuse$cadmium, meuse$zinc)
 
 # We can put all the column in a new variable
@@ -57,10 +58,24 @@ zin <- meuse$zinc
 
 plot(cad, zin)
 
-# Or you can use the "attach()" function
+# Or you can use the "attach()" function, to attach the datafame to R
 attach(meuse)
 plot(cadmium, zinc)
+
+# We can change the color, the size and the shape of the dots
+plot(cadmium,zinc, col="red", cex=2, pch=24)
 
 # If we use the function "pairs()" it plots every data, pairing between them
 pairs(meuse)
 
+# To select only some of the columns of the table (form column n to column m) we have to say it by using [,n:m]
+# Note that the commant to say what is the inizial point is comma
+meuse[,3:6]
+
+# To plot only the selected data we do simply like this
+pairs(meuse[,3:6])
+
+# To assign the selected data in a variable we do so
+pol <- meuse[,3:6]
+
+pairs(pol, col="blue", cex=0.2)
