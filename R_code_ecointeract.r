@@ -84,3 +84,21 @@ pairs(pol, col="blue", cex=0.2)
 # Note that we have to use tilde ~ (Alt + 5 on Mac) because we are clumping the data with plus
 pairs(~ cadmium + copper + lead + zinc, data=meuse)
 
+
+# We have to say to R that the variables are spacial components
+# There is a function called "coordinates()" 
+coordinates(meuse) = ~x+y
+
+# Now the software understood that x and y are the coordinates
+# If we do "plot(meuse)" R will print a spacial graph
+
+# We use the function "spplot()" to plot the elements spread in space
+spplot(meuse, "zinc", main="Concentration of Zinc")
+
+# We can make a spacial plot of several variables all together 
+spplot(meuse, c("copper","zinc","lead"))
+
+# With the function "bubble()" we are going to change the size of points according to the value, and not the color
+bubble(meuse, "zinc", main="Concentration of Zinc")
+# This is a more fancy way to show data, because the size of the dots get bigger when the data are higher
+# It is much more immediate for eyes a graph like that, and to show data like this. Also babies will understand
