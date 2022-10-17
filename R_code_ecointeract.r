@@ -79,3 +79,8 @@ pairs(meuse[,3:6])
 pol <- meuse[,3:6]
 
 pairs(pol, col="blue", cex=0.2)
+
+# If we want to pair some variable in a less efficient way do like this
+# Note that we have to use tilde ~ (Alt + 5 on Mac) because we are clumping the data with plus
+pairs(~ cadmium + copper + lead + zinc, data=meuse)
+
