@@ -36,7 +36,7 @@ View(meuse)
 
 # To solve this error I updated to the latest version the app Xcode on my computer and agreed the license
 # Then I downloaded and installed the package at: https://www.xquartz.org/
-# I restarted the computer and the function "View()" didn't give me errors anymore
+# I restarted the computer and the function "View()" didn't give me errors anymore, it's only a bit slow
 
 
 # Then we use the function "head()" to see only the initial lines of the table
@@ -61,5 +61,6 @@ plot(cad, zin)
 attach(meuse)
 plot(cadmium, zinc)
 
-# If we use the function "pairs()" it plots every data pairing between them
+# If we use the function "pairs()" it plots every data, pairing between them
 pairs(meuse)
+
