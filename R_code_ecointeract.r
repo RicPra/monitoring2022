@@ -21,18 +21,22 @@ View(meuse)
 
 # This gives me an error :(
 # Is that because I use a MacBook??? OMG rude
-Errore in View(meuse) : La dataentry X11 non può essere caricata
-In aggiunta: Messaggi di avvertimento:
-1: In system2("/usr/bin/otool", c("-L", shQuote(DSO)), stdout = TRUE) :
-  il comando in esecuzione ''/usr/bin/otool' -L '/Library/Frameworks/R.framework/Resources/modules/R_de.so'' aveva status 69
-2: In View(meuse) :
-  non è possibile caricare un oggetto condiviso '/Library/Frameworks/R.framework/Resources/modules//R_de.so':
-  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_de.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
-  Referenced from: /Library/Frameworks/R.framework/Versions/4.2/Resources/modules/R_de.so
-  Reason: image not found
 
-You have not agreed to the Xcode license agreements, please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode license agreements.
+# Errore in View(meuse) : La dataentry X11 non può essere caricata
+# In aggiunta: Messaggi di avvertimento:
+# 1: In system2("/usr/bin/otool", c("-L", shQuote(DSO)), stdout = TRUE) :
+#   il comando in esecuzione ''/usr/bin/otool' -L '/Library/Frameworks/R.framework/Resources/modules/R_de.so'' aveva status 69
+# 2: In View(meuse) :
+#   non è possibile caricare un oggetto condiviso '/Library/Frameworks/R.framework/Resources/modules//R_de.so':
+#   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_de.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
+#   Referenced from: /Library/Frameworks/R.framework/Versions/4.2/Resources/modules/R_de.so
+#   Reason: image not found
+#
+# You have not agreed to the Xcode license agreements, please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode license agreements.
 
+# To solve this error I updated to the latest version the app Xcode on my computer and agreed the license
+# Then I downloaded and installed the package at: https://www.xquartz.org/
+# I restarted the computer and the function "View()" didn't give me errors anymore
 
 
 # Then we use the function "head()" to see only the initial lines of the table
