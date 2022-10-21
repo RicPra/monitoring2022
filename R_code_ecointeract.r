@@ -136,3 +136,5 @@ ggplot(d, aes(x=virus, y=death)) + geom_point(size=3, col="red", pch=11) + geom_
 
 # Instead of using lines we can use polygons to connect our points, here is no sense but we do it using "geom_polygon()"
 ggplot(d, aes(x=virus, y=death)) + geom_point(size=3, col="red", pch=11) + geom_polygon()
+
+
