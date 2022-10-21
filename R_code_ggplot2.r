@@ -30,3 +30,15 @@ ggplot(d, aes(x=virus, y=death)) + geom_point(size=3, col="red", pch=11) + geom_
 
 # Instead of using lines we can use polygons to connect our points, here is no sense but we do it using "geom_polygon()"
 ggplot(d, aes(x=virus, y=death)) + geom_point(size=3, col="red", pch=11) + geom_polygon()
+
+
+
+# Now we are using data from outside R, so we have to connect R with the folder were our own data are
+# So we have to set the working dirctory, saying the path where to find the file with data
+# This is the path for Mac
+setwd("/Users/Ricky/Documents/MONITORING/LAB")
+
+# We use a function called "read.table()" and we have to say if there is a head of the table, what are the separators of the different columns
+# We assign the table to an object
+covid <- read.table("covid_agg.csv", header=TRUE)
+
