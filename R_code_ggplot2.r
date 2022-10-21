@@ -35,10 +35,14 @@ ggplot(d, aes(x=virus, y=death)) + geom_point(size=3, col="red", pch=11) + geom_
 
 # Now we are using data from outside R, so we have to connect R with the folder were our own data are
 # So we have to set the working dirctory, saying the path where to find the file with data
-# This is the path for Mac
+# This is the path for my Mac
 setwd("/Users/Ricky/Documents/MONITORING/LAB")
 
 # We use a function called "read.table()" and we have to say if there is a head of the table, what are the separators of the different columns
 # We assign the table to an object
 covid <- read.table("covid_agg.csv", header=TRUE)
 
+# Let's use the table now
+summary(covid)
+# We plot the data, changing the size of points in line with the number of cases in the aesthetics
+ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point(col="red")
