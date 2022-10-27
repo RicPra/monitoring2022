@@ -35,7 +35,7 @@ cl <- colorRampPalette(c("cyan", "coral", "chartreuse"))(100)
 plot(density_map, col=cl)
 points(covid_planar, pch=17, col="blue")
 
-# Trying a different palette hihi
+# Trying a different palette hihi, you can add as many colors as you want
 clr <- colorRampPalette(c("aliceblue", "cadetblue1", "cornflowerblue", "darkblue"))(200)
 plot(density_map, col=clr)
 points(covid_planar, pch=11, col="darkorange1")
