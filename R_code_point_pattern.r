@@ -39,3 +39,27 @@ points(covid_planar, pch=17, col="blue")
 clr <- colorRampPalette(c("aliceblue", "cadetblue1", "cornflowerblue", "darkblue"))(200)
 plot(density_map, col=clr)
 points(covid_planar, pch=11, col="darkorange1")
+
+
+# We should install a new package called "rgdal"
+install.packages("rgdal")
+
+# We now use a new work directory
+setwd("/Users/Ricky/Documents/MONITORING/LAB")
+# Then we upload the coastline file using rgdal and the function "readOGE()", assigning it to an object
+coastlines <- readOGR("ne_10m_coastline.shp")
+
+# We rebuild the map we made earlier
+covid <- read.table("covid_agg.csv", header=TRUE)
+attach(covid)
+covid_planar <- ppp(x=lon, y=lat, c(-180,180), c(-90,90))
+plot(covid_planar)
+# Now we plot the coastlines, saying that it should add it to our plot of the covid_planar
+plot(coastlines, add=TRUE)
+# We can also plot the density of the data
+density_map <- density(covid_planar)
+plot(density_map)
+points(covid_planar, pch=18, col="green")
+plot(coastlines, add=TRUE, col="yellow")
+
+# If we want to change colors we can just do the same as above
