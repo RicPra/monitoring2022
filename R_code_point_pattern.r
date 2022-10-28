@@ -63,3 +63,15 @@ points(covid_planar, pch=18, col="green")
 plot(coastlines, add=TRUE, col="yellow")
 
 # If we want to change colors we can just do the same as above
+
+# Let's move from density to aboundance, interpolating the number of cases
+# First of all we have to make marks, to explain to the software where are the points to make the aboundance
+# We use the function "marks()" explaining where to take the labels of our point (the number of cases)
+marks(covid_planar) <- cases
+
+# We use the function "Smooth()" to interpolate the data and assign it to an object
+cases_map <- Smooth(covid_planar)
+# And try to plot our map
+plot(cases_map, col=clr)
+points(covid_planar, pch=18, col="green")
+plot(coastlines, add=TRUE)
