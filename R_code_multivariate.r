@@ -26,4 +26,5 @@ plot(multivar)
 # But how to see all the biomes? We have a label in a different table that gives all the informations we need
 attach(biomes_types)
 # We use a function called "ordiellipse()" which ordinate plots in a new space
-ordiellipse(multivar, type, col=c("black", "red", "green", "blue"))
+ordiellipse(multivar, type, col=c("black", "red", "green", "blue"), kind="ehull", lwd=3)
+# And we see an ellipse that connects every data of the same biome
