@@ -15,3 +15,6 @@ p224r63_2011 <- brick("p224r63_2011_masked.grd")
 plot(p224r63_2011)
 
 # Let's change color, using the palette we used already
+cl <- colorRampPalette(c("cyan", "coral", "chartreuse"))(100)
+plot(p224r63_2011, col=cl)
+
