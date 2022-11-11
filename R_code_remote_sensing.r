@@ -33,3 +33,10 @@ par(mfrow=c(1,2))
 # This is an array with columns and rows, prepared to recive data inside of it
 plot(p224r63_2011[[1]], col=clr)
 plot(p224r63_2011[[2]], col=cl)
+
+# Let's make the first four images now yeyy
+par(mfrow=c(2,2))
+plot(p224r63_2011[[1]], col=clr)
+plot(p224r63_2011[[2]], col=cl)
+plot(p224r63_2011[[3]], col=clr)
+plot(p224r63_2011[[4]], col=cl)
