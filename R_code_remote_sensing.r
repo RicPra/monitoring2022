@@ -114,3 +114,9 @@ par(mfrow=c(2,1))
 plotRGB(p224r63_1988, r=3, g=2, b=4, stretch="lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
 
+
+# MULTITEMPORAL ANALYSIS
+# We are now going to take the two immages and subtract the bands to see what is changed
+# If we see changes in the near infrared this means that some trees had been cutted
+# We are going to do this for every pixel (more or less 4.5 millions)
+difnir <- p224r63_1988[[4]] - p224r63_2011[[4]]
