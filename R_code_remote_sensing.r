@@ -25,18 +25,50 @@ plot(p224r63_2011$B1_sre, col=cl)
 plot(p224r63_2011[[1]], col=cl)
 
 # Now we try to change some colors xdxd
-clr <- colorRampPalette(c("dodgerblue4", "cornflowerblue", "aliceblue"))(200)
+clric <- colorRampPalette(c("dodgerblue4", "cornflowerblue", "aliceblue"))(200)
 plot(p224r63_2011[[1]], col=clr)
 
 # If we want to plot one image beside the other we do like this
 par(mfrow=c(1,2))
 # This is an array with columns and rows, prepared to recive data inside of it
-plot(p224r63_2011[[1]], col=clr)
+plot(p224r63_2011[[1]], col=clric)
 plot(p224r63_2011[[2]], col=cl)
 
 # Let's make the first four images now, yeyy!!! :)))
 par(mfrow=c(2,2))
-plot(p224r63_2011[[1]], col=clr)
-plot(p224r63_2011[[2]], col=clr)
+plot(p224r63_2011[[1]], col=clric)
+plot(p224r63_2011[[2]], col=clric)
 plot(p224r63_2011[[3]], col=cl)
 plot(p224r63_2011[[4]], col=cl)
+
+# Let's plot all these four bands with different legends (color ramps)
+# Every plot with its own color palette
+par(mfrow=c(2,2))
+clb <- colorRampPalette(c("darkblue", "blue", "lightblue"))(100)
+plot(p224r63_2011[[1]], col=clb)
+clg <- colorRampPalette(c("chartreuse4", "green", "chartreuse"))(100)
+plot(p224r63_2011[[2]], col=clg)
+clr <- colorRampPalette(c("red4", "red2", "red"))(100)
+plot(p224r63_2011[[3]], col=clr)
+clnir <- colorRampPalette(c("orchid4", "orchid", "plum1"))(100)
+plot(p224r63_2011[[4]], col=clnir)
+
+
+# Now we make a multilayer image (3 layer immage=
+# We use three components: Red, Green and Blue
+# For mounting the bands together we use these three bands, which will be how we would see with our eyes
+# We plot every band above the other, unsing the function "plotRGB()", assigning each lens at its band
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
+# In our image the red was the band number 3, the green the number 2 and the blue the number 1
+# With this visualisation is difficult to discriminate all the things, so we use also the near infrared
+# But we should choose to remove one of the other three bands RIP
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+# Now we see in red all the vegetation which reflects a lot in the near infrared
+
+# Now we try to put the infrared instead of the green band
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+# And we see the vegetatation in fluorescent green and the bare soil in violet
+
+# Now we try to put the near infrared in the blue channel
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+# So we see in blue all the vegetation and we see better all the human activities ew
