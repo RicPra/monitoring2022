@@ -54,7 +54,7 @@ clnir <- colorRampPalette(c("orchid4", "orchid", "plum1"))(100)
 plot(p224r63_2011[[4]], col=clnir)
 
 
-# Now we make a multilayer image (3 layer immage=
+# Now we make a multilayer image (3 layer immage)
 # We use three components: Red, Green and Blue
 # For mounting the bands together we use these three bands, which will be how we would see with our eyes
 # We plot every band above the other, unsing the function "plotRGB()", assigning each lens at its band
@@ -72,3 +72,21 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
 # Now we try to put the near infrared in the blue channel
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
 # So we see in blue all the vegetation and we see better all the human activities ew
+
+# We plot now all the previous four manners in a single multiframe
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+
+# Let's see the histogram stretching, putting hist instead of lin in the stretch
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+# With the histogram stretching we can se better the bare soil in the middle of the forest, which is a bit sus
+
+# Same with other colors
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
