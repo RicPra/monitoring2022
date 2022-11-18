@@ -120,3 +120,24 @@ plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
 # If we see changes in the near infrared this means that some trees had been cutted
 # We are going to do this for every pixel (more or less 4.5 millions)
 difnir <- p224r63_1988[[4]] - p224r63_2011[[4]]
+# Now we plot it with a color palette to see the changes
+cl <- colorRampPalette(c("orange", "yellow", "black"))(100)
+plot(difnir, col=cl)
+# So we see in black all the changes in vegetation
+
+# We are going to focus on the Normalized Difference Vegetation Index
+# If the vegetation is suffering, the value of the near infrared is decreasing and the red is increasing
+
+# First we caluclate and plot the DVI of 2011
+dvi2011 <- p224r63_2011[[4]] - p224r63_2011[[3]]
+plot(dvi2011)
+# Then we caluclate and plot the DVI of 1988
+dvi1988 <- p224r63_1988[[4]] - p224r63_1988[[3]]
+plot(dvi1988)
+
+# Now we see the difference between the two DVI
+difdvi <- dvi1988 - dvi2011
+cl <- colorRampPalette(c("blue", "white", "red"))(100)
+plot(difdvi, col=cl)
+# All the red part show a loss in vegetation, if we see blue that means that there is a more healty vegetation
+# (Which usually is not natural but is vegetation of the agriculture)
