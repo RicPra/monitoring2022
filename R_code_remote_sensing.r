@@ -90,3 +90,27 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
 par(mfrow=c(2,1))
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+
+# Now we are going to upload new data, as usual
+setwd("/Users/Ricky/Documents/MONITORING/LAB")
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+# We are going to use both of the data to make some calculations
+
+# We use the function "plotRGB()" as above
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="lin")
+# This is our visual perception, so as above we use the infrared band, to see better the vegetation, that is going to be in red
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="lin")
+# Or in green
+plotRGB(p224r63_1988, r=3, g=4, b=2, stretch="lin")
+
+# Now we plot a multiframe with 2 rows and one column, with the 1988 and the 2011 images
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+# Better to put the near infrared in the blue channel, so we are going to see the bare soil in yellow
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=3, g=2, b=4, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+
