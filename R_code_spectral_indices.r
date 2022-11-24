@@ -26,6 +26,7 @@ plotRGB(l2006, r=1, g=2, b=3, stretch="lin")
 # Let's make my fancy palette first
 cl <- colorRampPalette(c("darkblue", "yellow", "red", "black"))(100)
 
+# REMINDER: NIR - R = DVI
 dvi1992 <- l1992[[1]] - l1992[[2]]
 plot(dvi1992, col=cl)
 
