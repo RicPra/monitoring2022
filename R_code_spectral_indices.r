@@ -72,3 +72,20 @@ h2006 <- 164588 / (178138 + 164588)
 # Class 2, 1992 = human impact - 0.1059533
 # Class 1, 2006 = forest - 0.519768
 # Class 2, 2006 = human impact - 0.480232
+
+
+# Now we make our database to study the chages
+landcover <- c("Forset", "Humans")
+percent_1992 <- c(89.40, 10.60)
+percent_2006 <- c(51.98, 48.02)
+
+# In R the database are called dataframe, we use the function "data.frame()"
+perc <- data.frame(landcover, percent_1992, percent_2006)
+
+# Now we have to use the package "ggplot2" so we have to recall it
+library(ggplot2)
+# And we plot our data with a fancy histogram yey
+ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+
+
