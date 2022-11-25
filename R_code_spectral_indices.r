@@ -74,7 +74,7 @@ h2006 <- 164588 / (178138 + 164588)
 # Class 2, 2006 = human impact - 0.480232
 
 
-# Now we make our database to study the chages
+# Now we make our database to study the changes
 landcover <- c("Forset", "Humans")
 percent_1992 <- c(89.40, 10.60)
 percent_2006 <- c(51.98, 48.02)
@@ -88,4 +88,15 @@ library(ggplot2)
 ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
 ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
 
+# Now we use another fancy package called "patchwork"
+install.packages("patchwork")
+library(patchwork)
 
+# We assign the two plots to objects and we make one plus the other
+p1 <- ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+p2 <- ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+# And now we can see the two histograms one beside the other to have a more clear look
+p1 + p2
+
+# Just for fun we try to put the first plot on top of the other
+p1 / p2
