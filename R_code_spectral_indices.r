@@ -117,10 +117,12 @@ install.packages("viridis")
 library(viridis)
 
 # Or we can make use of ggplot with a new geometry, geom_raster
-pp1 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="viridis")
+pp1 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="viridis") + 
+ggtitle("Multispectral Rao")
 # We used also the function "scale_fill_viridis()" to make the map visible for daltonic people, using "viridis" in the options
-# We can use whatever option we want xd
-pp2 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="magma")
+# We can use whatever option we want, so we don't have to use the colorRampPalette
+pp2 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="inferno") +
+ggtitle("Multispectral Rao")
 
 # And we plot the two plots together
 pp1 + pp2
