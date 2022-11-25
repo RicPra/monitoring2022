@@ -100,3 +100,27 @@ p1 + p2
 
 # Just for fun we try to put the first plot on top of the other
 p1 / p2
+
+
+# Now we plot the images in RGB
+# Band 1 is the NIR
+plotRGB(l1992, r=1, g=2, b=3)
+# Or we can do like this
+ggRGB(l1992, 1, 2, 3)
+
+# But we can plot also the DVI (Difference Vegetation Index), as above
+dvi1992 = dvi1992 <- l1992[[1]] - l1992[[2]]
+plot(dvi1992, col=cl)
+
+# We need a new package called "viridis" to make use of a new function for daltonic people to see all the difference in maps
+install.packages("viridis")
+library(viridis)
+
+# Or we can make use of ggplot with a new geometry, geom_raster
+pp1 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="viridis")
+# We used also the function "scale_fill_viridis()" to make the map visible for daltonic people, using "viridis" in the options
+# We can use whatever option we want xd
+pp2 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="magma")
+
+# And we plot the two plots together
+pp1 + pp2
