@@ -30,3 +30,8 @@ snowEurope <- crop(snow, ext)
 # And we plot only Europe
 ggplot() + geom_raster(snowEurope, mapping = aes(x=x, y=y, fill=Snow.Cover.Extent)) + scale_fill_viridis(option="inferno")
 
+# We plot with the package patchwork
+p1 <- ggplot() + geom_raster(snow, mapping = aes(x=x, y=y, fill=Snow.Cover.Extent)) + scale_fill_viridis(option="inferno")
+p2 <- ggplot() + geom_raster(snowEurope, mapping = aes(x=x, y=y, fill=Snow.Cover.Extent)) + scale_fill_viridis(option="mako")
+
+p1 + p2
