@@ -52,10 +52,19 @@ plot(ToG)
 p1 <- ggplot() + geom_raster(ToG$lst_2000, mapping = aes(x=x, y=y, fill=lst_2000)) + 
 scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
 ggtitle("Temperature 2000")
+
 p2 <- ggplot() + geom_raster(ToG$lst_2015, mapping = aes(x=x, y=y, fill=lst_2015)) + 
 scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
 ggtitle("Temperature 2000")
 
 p1 + p2
 # Now we can see the difference in temperature from 2000 to 2015 in Greenland :(
-# We kept the legend inverted to see better the correlation with ice.
+# We kept the legend inverted to see better the correlation with ice
+
+# Let's make the difference between 2015 and 2000, to see the changes, but we maintain the normal legend
+dift = ToG[[4]] - ToG[[1]]
+p3 <- ggplot() + geom_raster(dift, mapping = aes(x=x, y=y, fill=layer)) + 
+scale_fill_viridis(option="mako", direction=1, alpha=0.8) + 
+ggtitle("Difference in temperature from 2000 to 2015")
+
+p1 + p2 + p3
