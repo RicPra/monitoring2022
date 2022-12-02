@@ -5,6 +5,7 @@ library(raster)
 library(ggplot2)
 library(RStoolbox)
 library(viridis)
+library(patchwork)
 
 
 # We import the data we need, setting the working directory
@@ -47,3 +48,14 @@ ToG <- stack(import)
 
 # Finally to plot all the data we can simply do like this
 plot(ToG)
+# Better with ggplot. We can say the name of the element "ToG$lst_2000" or the position "ToG[[1]]"
+p1 <- ggplot() + geom_raster(ToG$lst_2000, mapping = aes(x=x, y=y, fill=lst_2000)) + 
+scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
+ggtitle("Temperature 2000")
+p2 <- ggplot() + geom_raster(ToG$lst_2015, mapping = aes(x=x, y=y, fill=lst_2015)) + 
+scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
+ggtitle("Temperature 2000")
+
+p1 + p2
+# Now we can see the difference in temperature from 2000 to 2015 in Greenland :(
+# We kept the legend inverted to see better the correlation with ice.
