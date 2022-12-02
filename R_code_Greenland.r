@@ -68,3 +68,9 @@ scale_fill_viridis(option="mako", direction=1, alpha=0.8) +
 ggtitle("Difference in temperature from 2000 to 2015")
 
 p1 + p2 + p3
+
+
+# Finally let's see the plotRGB
+plotRGB(ToG, r=1, g=2, b=4, stretch="lin")
+# So in a single plot we can stack three layers all together
+# If the plot is becoming green/blue it means that now temperature are higher than in the past
