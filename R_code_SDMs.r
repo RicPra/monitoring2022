@@ -9,6 +9,9 @@ library(sdm)
 library(raster)
 library(rgdal)
 
+# Our fancy palette
+cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
+
 # We use a function called "system.file()" which is going to show us the path of a certain file
 file <- system.file("external/species.shp", package="sdm")
 # Now in "file" we have the path to the data
@@ -43,9 +46,27 @@ path <- system.file("external", package="sdm")
 lst <- list.files(path=path,pattern="asc$",full.names = TRUE)
 
 # We use the "stack()" function for the predictors
-pred <- stack(lst)
+preds <- stack(lst)
 # And plot
 plot(pred)
 
-# We have uploaded the predictors, and we have to see if there is a relationship between the points and the predictors
+# Now we build the model
+datasdm <- sdmData(train = species, predictors = preds)
 
+# To build the model we use the "sdm()" function
+m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data=datasdm, methods = "glm")
+# The tilde is the same as writing the equal
+
+# We predict the distribution based on our model with our predictors
+p1 <- predict(m1, newdata=preds)
+
+# We plot now the probability of the spread of the species
+plot(p1)
+# This is a probabiliti from 0 to 1
+
+# We can stack all together
+finalstack <- stack(preds, p1)
+# And we plot
+plot(finalstack, col=cl)
+
+# Now we have the possibility to predict and understand why frogs are there or not yey
