@@ -62,7 +62,7 @@ p1 <- predict(m1, newdata=preds)
 
 # We plot now the probability of the spread of the species
 plot(p1)
-# This is a probabiliti from 0 to 1
+# This is a probability from 0 to 1
 
 # We can stack all together
 finalstack <- stack(preds, p1)
