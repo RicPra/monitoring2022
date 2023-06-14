@@ -32,7 +32,7 @@ plotRGB(adamello2001, r=3, g=2, b=1, stretch="hist")
 plotRGB(adamello2010, r=3, g=2, b=1, stretch="hist")
 
 plotRGB(adamello2019, r=3, g=2, b=1, stretch="hist")
-plot(multivar)
+
 dev.off()
 
 ext <- c(601875, 641215, 5090355, 5130000)
