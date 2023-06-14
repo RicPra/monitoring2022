@@ -1,6 +1,11 @@
-# My exam project xdxd
+# My exam project
+# Analysis of the snow cover on the Adamello Presanella group on the Italian Alps
 
-library(ncdf4)
+# With this project I want to look at the variation of the ice cover at the beginning of the summer from
+# May/August 2001 to May/August 2022
+
+# The images are a median of the period from the beginning of May to end of August of 2001, 2010, and 2022.
+
 library(raster)
 library(ggplot2)
 library(RStoolbox)
@@ -10,70 +15,57 @@ library(patchwork)
 
 setwd("/Users/Ricky/Documents/MONITORING/examProject_RiccardoPrandi")
 
-temp2010 <- raster("c_gls_LST_201007031300_GLOBE_GEO_V1.2.1.nc", varname="LST")
+adamello2001 <- raster("landsat2001Adamello.tif")
 
-temp2015 <- raster("c_gls_LST_201507031300_GLOBE_GEO_V1.2.1.nc", varname="LST")
+adamello2010 <- raster("landsat2010Adamello.tif")
 
-temp2020 <- raster("c_gls_LST_202007031300_GLOBE_GEO_V1.2.1.nc", varname="LST")
-
-# provo a fare la differenza degli anni (?)
-diff <- temp2020 - temp2010
-
-ggplot() + geom_raster(diff, mapping = aes(x=x, y=y, fill=layer ))+ scale_fill_viridis(option="mako")
+adamello2022 <- raster("landsat2022Adamello.tif")
 
 
+ggplot() + geom_raster(adamello2001, mapping = aes(x=x, y=y, fill=layer)) + 
+scale_fill_viridis(option="mako", direction=1)
 
-p1 <- ggplot() + geom_raster(temp2010, mapping = aes(x=x, y=y, fill=Land.Surface.Temperature )) + scale_fill_viridis(option="mako")
+ggplot() + geom_raster(adamello2010, mapping = aes(x=x, y=y, fill=layer)) + 
+scale_fill_viridis(option="mako", direction=1)
 
-p2 <- ggplot() + geom_raster(temp2015, mapping = aes(x=x, y=y, fill=Land.Surface.Temperature )) + scale_fill_viridis(option="mako")
-
-p3 <- ggplot() + geom_raster(temp2020, mapping = aes(x=x, y=y, fill=Land.Surface.Temperature )) + scale_fill_viridis(option="mako")
-
-#coordinate marsiglia e vienna
-ext <- c(5, 43, 16, 48)
-temp2020europe <- crop(temp2020, ext)
-# I have no idea what I have done
-
-# forse è meglio usare file tiff, che ci sta più roba su virtuale e magari si può fare qualcosa in più
+ggplot() + geom_raster(adamello2022, mapping = aes(x=x, y=y, fill=layer)) + 
+scale_fill_viridis(option="mako", direction=1)
 
 
-snow2006 <- raster("c_gls_SWE5K_200603200000_NHEMI_SSMIS_V1.0.2.nc")
+par(mfrow=c(1,3))
 
-#coordinate marsiglia e vienna
-ext <- c(5, 43, 16, 48)
-snow2006alps <- crop(snow2006, ext)
-
-snow2010 <- raster("c_gls_SWE5K_201003200000_NHEMI_SSMIS_V1.0.2.nc")
-
-#coordinate marsiglia e vienna
-ext <- c(5, 43, 16, 48)
-snow2010alps <- crop(snow2010, ext)
-
-snow2022 <- raster("c_gls_SWE5K_202203200000_NHEMI_SSMIS_V1.0.2.nc")
-
-#coordinate marsiglia e vienna
-ext <- c(5, 43, 16, 48)
-snow2022alps <- crop(snow2022, ext)
+plot(adamello2001)
+plot(adamello2010)
+plot(adamello2022)
 
 
-temp2015 <- raster("c_gls_LST_201507031300_GLOBE_GEO_V1.2.1.nc", varname="LST")
+rlist <- list.files(pattern="landsat")
+import <- lapply(rlist, raster)
 
-temp2020 <- raster("c_gls_LST_202007031300_GLOBE_GEO_V1.2.1.nc", varname="LST")
+AdPrSnow <- stack(import)
+
+plot(AdPrSnow)
+
+p1 <- ggplot() + geom_raster(AdPrSnow$layer.1, mapping = aes(x=x, y=y, fill=layer.1)) + 
+scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
+ggtitle("Temperature 2000")
+
+p2 <- ggplot() + geom_raster(AdPrSnow$layer.2, mapping = aes(x=x, y=y, fill=layer.2)) + 
+scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
+ggtitle("Temperature 2000")
+
+p3 <- ggplot() + geom_raster(AdPrSnow$layer.3, mapping = aes(x=x, y=y, fill=layer.3)) + 
+scale_fill_viridis(option="inferno", direction=-1, alpha=0.8) + 
+ggtitle("Temperature 2000")
 
 
-# Study of the ice melting in Greenland due to increasing temperature
+dift = AdPrSnow[[3]] - AdPrSnow[[1]]
 
-# Packages we need
-library(raster)
-library(ggplot2)
-library(RStoolbox)
-library(viridis)
-library(patchwork)
+p4 <- ggplot() + geom_raster(dift, mapping = aes(x=x, y=y, fill=layer)) + 
++ scale_fill_viridis(option="mako", direction=1, alpha=0.8) + 
++ ggtitle("Difference in temperature from 2000 to 2015")
 
 
-# We import the data we need, setting the working directory
-setwd("/Users/Ricky/Documents/MONITORING/LAB")
-lst_2000 <- raster("lst_2000.tif")
 
 # Now we plot it with ggplot(), using the raster geometry, to see the situation in Greenland in 2000
 ggplot() + geom_raster(lst_2000, mapping = aes(x=x, y=y, fill=lst_2000)) + scale_fill_viridis(option="inferno", direction=-1)
