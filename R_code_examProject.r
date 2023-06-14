@@ -24,13 +24,16 @@ adamello2019 <- brick("landsat2019Adamello.tif")
 
 # for landsat the sr_b1 = blue etc..vedi roba rocio (3,2,1 perchè le bande di landsat sono così
 
+pdf("satimages.pdf")
+
 #me li plotto tutti e tre per vedere le mie immaginine satellitari
 plotRGB(adamello2001, r=3, g=2, b=1, stretch="hist")
 
 plotRGB(adamello2010, r=3, g=2, b=1, stretch="hist")
 
 plotRGB(adamello2019, r=3, g=2, b=1, stretch="hist")
-
+plot(multivar)
+dev.off()
 
 ext <- c(601875, 641215, 5090355, 5130000)
 # We use the function "crop()" and we save our new image
