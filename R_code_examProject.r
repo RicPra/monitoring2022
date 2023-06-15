@@ -108,40 +108,135 @@ p6
 dev.off()
 
 
-
-# calassificando il ghiaccio, con tre classi riesco a distinguere il ghiaccio da tutto il resto
-# set.seed tiene fermi i valori
-
-# r.code landcover rocio
-set.seed(1)
+# Now I check the changes in the amount of snow
+# To quantify this I do a classification using the function "unsuperClass()"
+# I use 3 classes to divide the snow, the mountains and rocks and everything else
+set.seed(4)
 adaPresa2001class <- unsuperClass(adaPresa2001, nClasses = 3)
+adaPresa2010class <- unsuperClass(adaPresa2010, nClasses = 3)
+adaPresa2019class <- unsuperClass(adaPresa2019, nClasses = 3)
 
-# 3 per dividere fondo valle, roccia e neve
+# Saving the images
+jpeg("Classification2001.jpeg")
+plot(adaPresa2001class$map, main="Classification 2001")
+dev.off()
 
+jpeg("Classification2010.jpeg")
+plot(adaPresa2010class$map, main="Classification 2010")
+dev.off()
+
+jpeg("Classification2019.jpeg")
+plot(adaPresa2019class$map, main="Classification 2019")
+dev.off()
+
+
+# I can count the number of pixel for each class for each image
+freq(adaPresa2001class$map)
+# The results are:
 # value  count
-#[1,]     1 469982
-#[2,]     2 539187
-#[3,]     3 688553
+# [1,]     1 536279
+#[2,]     2 458544
+#[3,]     3 702899
 #[4,]    NA  35420
 
-# map perchè il mio oggetto ha due robe dentro
-plot(adaPresa2001class$map)
+freq(adaPresa2010class$map)
+# The results are:
+# value  count
+#[1,]     1 170972
+#[2,]     2 964758
+#[3,]     3 488399
+#[4,]    NA 109013
 
-freq(adaPresa2001class$map)
+freq(adaPresa2019class$map)
+# The results are:
+#value  count
+#[1,]     1 551081
+#[2,]     2 440175
+#[3,]     3 619683
+#[4,]    NA 122203
 
-# questa roba non farla...
-#rlist <- list.files(pattern="landsat")
-#import <- lapply(rlist, raster)
-#adaPresa <- stack(import)
+# I look at the total pixel for each
+adaPresa2001
+adaPresa2010
+adaPresa2019
+# All af them have a total of 1733142 pixels
 
-#cambiare
-plot(adaPresa)
+# And now I can caluclate the proportions of snow on the total for each image
+snow2001 <- 536279 / 1733142
+snow2010 <- 170972 / 1733142
+snow2019 <- 551081 / 1733142
+
+0.3094259
+0.09864858
+0.3179664
 
 
-dift = AdPrSnow[[3]] - AdPrSnow[[1]]
+# Let's do the same for 2006
+d2c <- unsuperClass(l2006, nClasses=2)
 
-# il fill deve essere la temperatura
-p4 <- ggplot() + geom_raster(dift, mapping = aes(x=x, y=y, fill=layer)) + 
-+ scale_fill_viridis(option="mako", direction=1, alpha=0.8) + 
-+ ggtitle("Difference in temperature from 2000 to 2015")
+freq(d2c$map)
+# Class 1 = forest - 178138
+# Class 2 = human impact - 164588
 
+f2006 <- 178138 / (178138 + 164588)
+h2006 <- 164588 / (178138 + 164588)
+
+# The proportion we calculated are these
+# Class 1, 1992 = forest - 0.8940467
+# Class 2, 1992 = human impact - 0.1059533
+# Class 1, 2006 = forest - 0.519768
+# Class 2, 2006 = human impact - 0.480232
+
+
+# Now we make our database to study the changes
+landcover <- c("Forset", "Humans")
+percent_1992 <- c(89.40, 10.60)
+percent_2006 <- c(51.98, 48.02)
+
+# In R the database are called dataframe, we use the function "data.frame()"
+perc <- data.frame(landcover, percent_1992, percent_2006)
+
+# Now we have to use the package "ggplot2" so we have to recall it
+library(ggplot2)
+# And we plot our data with a fancy histogram yey
+ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+
+# Now we use another fancy package called "patchwork"
+install.packages("patchwork")
+library(patchwork)
+
+# We assign the two plots to objects and we make one plus the other
+p1 <- ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+p2 <- ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
+# And now we can see the two histograms one beside the other to have a more clear look
+p1 + p2
+
+# Just for fun we try to put the first plot on top of the other
+p1 / p2
+
+
+# Now we plot the images in RGB
+# Band 1 is the NIR
+plotRGB(l1992, r=1, g=2, b=3)
+# Or we can do like this
+ggRGB(l1992, 1, 2, 3)
+
+# But we can plot also the DVI (Difference Vegetation Index), as above
+dvi1992 = dvi1992 <- l1992[[1]] - l1992[[2]]
+plot(dvi1992, col=cl)
+
+# We need a new package called "viridis" to make use of a new function for daltonic people to see all the difference in maps
+install.packages("viridis")
+library(viridis)
+
+# Or we can make use of ggplot with a new geometry, geom_raster
+pp1 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="viridis") + 
+ggtitle("Multispectral Rao")
+# We used also the function "scale_fill_viridis()" to make the map visible for daltonic people, using "viridis" in the options
+# We can use whatever option we want, so we don't have to use the colorRampPalette
+pp2 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="inferno") +
+ggtitle("Multispectral Rao")
+
+# And we plot the two plots together
+pp1 + pp2
