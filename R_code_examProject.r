@@ -53,8 +53,6 @@ plotRGB(adaPresa2019, r=3, g=2, b=1, stretch="hist", axes=TRUE, main="Adamello P
 dev.off()
 
 
-# QUESTA PARTE NON CREDO ABBIA TROPPO SENSO IN CASO TAGLIARE
-
 # Now, using the surface temperature, I try to see if there were changes in the years of the snow cover
 # I make and save the plots
 p1 <- ggplot() + geom_raster(adaPresa2001, mapping = aes(x=x, y=y, fill=ST_B6)) + 
@@ -63,6 +61,8 @@ p2 <- ggplot() + geom_raster(adaPresa2010, mapping = aes(x=x, y=y, fill=ST_B6)) 
 scale_fill_viridis(option="mako", direction=1, alpha=0.8) + ggtitle("Temperature 2010")
 p3 <- ggplot() + geom_raster(adaPresa2019, mapping = aes(x=x, y=y, fill=ST_B6)) + 
 scale_fill_viridis(option="mako", direction=1, alpha=0.8) + ggtitle("Temperature 2019")
+
+p1/p2/p3 
 
 jpeg("Temperature2001.jpeg")
 p1
@@ -185,11 +185,11 @@ perc <- data.frame(landcover, percent_2001, percent_2010, percent_2019)
 
 # And I plot our data with a fancy histogram
 p7 <- ggplot(perc, aes(x=landcover, y=percent_2001, color=landcover)) + 
-geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2001")
+geom_bar(stat="identity") + ggtitle("Percentage of snow and land in 2001")
 p8 <- ggplot(perc, aes(x=landcover, y=percent_2010, color=landcover)) + 
-geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2010")
+geom_bar(stat="identity") + ggtitle("Percentage of snow and land in 2010")
 p9 <- ggplot(perc, aes(x=landcover, y=percent_2019, color=landcover)) + 
-geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2019")
+geom_bar(stat="identity") + ggtitle("Percentage of snow and land in 2019")
 
 # Let's have a look
 p7 + p8 + p9
