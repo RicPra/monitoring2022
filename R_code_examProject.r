@@ -166,77 +166,43 @@ snow2001 <- 536279 / 1733142
 snow2010 <- 170972 / 1733142
 snow2019 <- 551081 / 1733142
 
-0.3094259
-0.09864858
-0.3179664
+# Now I calculate the percentage of snow and non snow for each period
+percSnow2001 <- snow2001 * 100
+percSnow2010 <- snow2010 * 100
+percSnow2019 <- snow2019 * 100
+percRest2001 <- 100 - percSnow2001
+percRest2010 <- 100 - percSnow2010
+percRest2019 <- 100 - percSnow2019
 
+# Now I make a database to study the changes
+landcover <- c("Snow", "Land")
+percent_2001 <- c(percSnow2001, percRest2001)
+percent_2010 <- c(percSnow2010, percRest2010)
+percent_2019 <- c(percSnow2019, percRest2019)
 
-# Let's do the same for 2006
-d2c <- unsuperClass(l2006, nClasses=2)
+# I use the function "data.frame()" to save the data
+perc <- data.frame(landcover, percent_2001, percent_2010, percent_2019)
 
-freq(d2c$map)
-# Class 1 = forest - 178138
-# Class 2 = human impact - 164588
+# And I plot our data with a fancy histogram
+p7 <- ggplot(perc, aes(x=landcover, y=percent_2001, color=landcover)) + 
+geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2001")
+p8 <- ggplot(perc, aes(x=landcover, y=percent_2010, color=landcover)) + 
+geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2010")
+p9 <- ggplot(perc, aes(x=landcover, y=percent_2019, color=landcover)) + 
+geom_bar(stat="identity", fill="chartreuse") + ggtitle("Percentage of snow and land in 2019")
 
-f2006 <- 178138 / (178138 + 164588)
-h2006 <- 164588 / (178138 + 164588)
+# Let's have a look
+p7 + p8 + p9
 
-# The proportion we calculated are these
-# Class 1, 1992 = forest - 0.8940467
-# Class 2, 1992 = human impact - 0.1059533
-# Class 1, 2006 = forest - 0.519768
-# Class 2, 2006 = human impact - 0.480232
+# And I save them
+jpeg("Percentage2001.jpeg")
+p7
+dev.off()
 
+jpeg("Percentage2010.jpeg")
+p8
+dev.off()
 
-# Now we make our database to study the changes
-landcover <- c("Forset", "Humans")
-percent_1992 <- c(89.40, 10.60)
-percent_2006 <- c(51.98, 48.02)
-
-# In R the database are called dataframe, we use the function "data.frame()"
-perc <- data.frame(landcover, percent_1992, percent_2006)
-
-# Now we have to use the package "ggplot2" so we have to recall it
-library(ggplot2)
-# And we plot our data with a fancy histogram yey
-ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
-ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
-
-# Now we use another fancy package called "patchwork"
-install.packages("patchwork")
-library(patchwork)
-
-# We assign the two plots to objects and we make one plus the other
-p1 <- ggplot(perc, aes(x=landcover, y=percent_1992, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
-p2 <- ggplot(perc, aes(x=landcover, y=percent_2006, color=landcover)) + geom_bar(stat="identity", fill="chartreuse")
-# And now we can see the two histograms one beside the other to have a more clear look
-p1 + p2
-
-# Just for fun we try to put the first plot on top of the other
-p1 / p2
-
-
-# Now we plot the images in RGB
-# Band 1 is the NIR
-plotRGB(l1992, r=1, g=2, b=3)
-# Or we can do like this
-ggRGB(l1992, 1, 2, 3)
-
-# But we can plot also the DVI (Difference Vegetation Index), as above
-dvi1992 = dvi1992 <- l1992[[1]] - l1992[[2]]
-plot(dvi1992, col=cl)
-
-# We need a new package called "viridis" to make use of a new function for daltonic people to see all the difference in maps
-install.packages("viridis")
-library(viridis)
-
-# Or we can make use of ggplot with a new geometry, geom_raster
-pp1 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="viridis") + 
-ggtitle("Multispectral Rao")
-# We used also the function "scale_fill_viridis()" to make the map visible for daltonic people, using "viridis" in the options
-# We can use whatever option we want, so we don't have to use the colorRampPalette
-pp2 <- ggplot() + geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) + scale_fill_viridis(option="inferno") +
-ggtitle("Multispectral Rao")
-
-# And we plot the two plots together
-pp1 + pp2
+jpeg("Percentage2019.jpeg")
+p9
+dev.off()
