@@ -34,7 +34,7 @@ plotRGB(adamello2019, r=3, g=2, b=1, stretch="hist")
 # I want to work only with data of the Adamello Presanella group so I cut the map
 # For doing so I have to put in a variable the minimum and maximum cordinates
 ext <- c(601875, 641215, 5090355, 5130000)
-# I use the function "crop()" and save the new image to work on those
+# I use the function "crop()" and save the new image to work on them
 adaPresa2001 <- crop(adamello2001, ext)
 adaPresa2010 <- crop(adamello2010, ext)
 adaPresa2019 <- crop(adamello2019, ext)
