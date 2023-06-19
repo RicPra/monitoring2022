@@ -1,5 +1,5 @@
 # Exam project
-# Analysis of the snow cover on the Adamello Presanella group on the Italian Alps
+# Analysis of the snow cover on the Adamello Presanella group in the Italian Alps
 
 # With this work I want to look at the variation of the snow cover 
 # of summer from May/August 2001 to May/August 2019.
